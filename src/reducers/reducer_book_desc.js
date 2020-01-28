@@ -1,9 +1,10 @@
-import {BOOK_DESC} from '../actions';
+import {SELECTED_BOOK} from '../actions';
 
 function bookDescReducer (state = null, action) {
   switch (action.type) {
-    case BOOK_DESC:
-      return action.payload;
+    case SELECTED_BOOK:
+      //console.log(action.payload.)
+      return action.payload.description
 
     default:
       return state;

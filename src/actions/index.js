@@ -1,1 +1,1 @@
-export const BOOK_DESC = 'BOOK_DESC';
+export const SELECTED_BOOK = 'SELECTED_BOOK';

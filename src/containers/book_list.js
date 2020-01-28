@@ -1,19 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import bookDescClick from '../actions/action_book_desc';
+import selectedBook from '../actions/action_selected_book';
 
 function BookLists (props) {
+
+  const [selectBook, setSelectBook] = useState('Select a Book')
+  
   function listBooks () {
-    console.log (typeof props.books);
+    //console.log (typeof props.activeBook);
     return props.books.map (book => (
       <li
-        onClick={() => props.bookDescClick (book)}
+        onClick={() => {
+            props.selectedBook (book)
+            setTitle()
+          }          
+        }
         className="list-group-item"
         key={book.title}
       >
         {book.title}
       </li>
     ));
+  }
+
+  function setTitle(){
+    setSelectBook('Selected Book is')
   }
 
   return (
@@ -24,7 +35,7 @@ function BookLists (props) {
         </ul>
       </div>
       <div className="col">
-        <h2>Content</h2>
+        {!props.activeBook ?(<h2>{selectBook}</h2>) : (<div><h2>{selectBook}</h2><h1>{props.activeBook}</h1></div>)}
       </div>
     </div>
   );
@@ -33,12 +44,13 @@ function BookLists (props) {
 const mapStateToProps = state => {
   return {
     books: state.books,
+    activeBook: state.activeBook
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    bookDescClick: () => dispatch (bookDescClick ()),
+    selectedBook: (clickedBook) => dispatch (selectedBook (clickedBook)),
   };
 };
 
